@@ -29,5 +29,5 @@ if (wyborcheck == 3)
 void WyjasnienieZasad()
 {
     Console.WriteLine("<Szybkie Wyjasnienie Zasad>");
-    Console.WriteLine("Plansza 10x10 \n Statki: \n 1x4 \n 2x3 \n 3x2 \n 4x1");
+    Console.WriteLine("Plansza 10x10 \n Statki: \n 1x4 \n 2x3 \n 3x2 \n 4x1 \n Znaki na Planszy: \n Woda - ~ \n Statek - S \n Pudło - O \n Trafienie - X");
 }
