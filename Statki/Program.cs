@@ -13,7 +13,11 @@ if (wyborcheck == 1)
     //Rozpoczęcie gry z botem
     Console.WriteLine("<-----ROZPOCZĘCIE GRY Z BOTEM----->");
     WyjasnienieZasad();
-    StworzPlansze();
+    char[,] planszaGracza =StworzPlansze();
+    char[,] planszaBota = StworzPlansze();
+    PokażPlansze(planszaGracza, false);
+    
+
 }
 if (wyborcheck == 2)
 {
@@ -43,4 +47,33 @@ static char[,] StworzPlansze()
     for (int j = 0; j <10; j++)
             plansza[i,j] = '~';
     return plansza;
+}
+static void PokażPlansze(char[,] plansza, bool ukryjstatek)
+{
+    Console.Write("  ");
+    for (int i = 0; i < 10; i++)
+    {
+        Console.Write(i + " ");
+       
+    }
+    Console.WriteLine();
+    for (int i = 0; i < 10; i++)
+    {
+        Console.Write(i + " ");
+            for (int j = 0; j < 10; j++)
+        {
+            char pole = plansza[i,j];
+            if (ukryjstatek && pole == 'S')
+            {
+                Console.Write("~ ");
+            }
+            else
+            {
+                Console.Write(pole + " ");
+            }
+           
+        }
+        Console.WriteLine();
+    }
+ 
 }
