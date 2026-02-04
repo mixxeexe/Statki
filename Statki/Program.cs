@@ -1,4 +1,6 @@
 ﻿int wyborcheck;
+int x;
+int y;
 //Menu
 Console.WriteLine(" ██████╗ ██████╗  █████╗     ██╗    ██╗    ███████╗████████╗ █████╗ ████████╗██╗  ██╗██╗\r\n██╔════╝ ██╔══██╗██╔══██╗    ██║    ██║    ██╔════╝╚══██╔══╝██╔══██╗╚══██╔══╝██║ ██╔╝██║\r\n██║  ███╗██████╔╝███████║    ██║ █╗ ██║    ███████╗   ██║   ███████║   ██║   █████╔╝ ██║\r\n██║   ██║██╔══██╗██╔══██║    ██║███╗██║    ╚════██║   ██║   ██╔══██║   ██║   ██╔═██╗ ██║\r\n╚██████╔╝██║  ██║██║  ██║    ╚███╔███╔╝    ███████║   ██║   ██║  ██║   ██║   ██║  ██╗██║\r\n ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝     ╚══╝╚══╝     ╚══════╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝\r\n");
 Console.WriteLine("1.Rozpocznij grę w statki z botem");
@@ -15,8 +17,12 @@ if (wyborcheck == 1)
     WyjasnienieZasad();
     char[,] planszaGracza =StworzPlansze();
     char[,] planszaBota = StworzPlansze();
+    Console.WriteLine("---Twoja Plansza---");
     PokażPlansze(planszaGracza, false);
-    
+    Statkidouzycia();
+    Console.WriteLine("Postaw Statek na planszy (np. ):");
+    //PokażPlansze(planszaBota, true);
+
 
 }
 if (wyborcheck == 2)
@@ -36,9 +42,13 @@ if (wyborcheck == 3)
 void WyjasnienieZasad()
 {
     Console.WriteLine("<Szybkie Wyjasnienie Zasad>");
-    Console.WriteLine("Plansza 10x10 \n Statki: \n 1x4 \n 2x3 \n 3x2 \n 4x1 \n Znaki na Planszy: \n Woda - ~ \n Statek - S \n Pudło - O \n Trafienie - X");
+    Console.WriteLine("Plansza 10x10 \n  Znaki na Planszy: \n Woda - ~ \n Statek - S \n Pudło - O \n Trafienie - X");
 
 
+}
+void Statkidouzycia()
+{
+    Console.WriteLine("Statki: \n 1x4 \n 2x3 \n 3x2 \n 4x1 \n");
 }
 static char[,] StworzPlansze()
 {
@@ -76,4 +86,8 @@ static void PokażPlansze(char[,] plansza, bool ukryjstatek)
         Console.WriteLine();
     }
  
+}
+static void PostawStatek(char[,] plansza, int x, int y, int dlugosc, bool poziomo)
+{
+
 }
