@@ -6,6 +6,7 @@ Console.WriteLine(" ██████╗ ██████╗  █████
 Console.WriteLine("1.Rozpocznij grę w statki z botem");
 Console.WriteLine("2.Rozpocznij grę w statki z drugim graczem");
 Console.WriteLine("3.Zakończ program");
+WyjasnienieZasad();
 wyborcheck = Convert.ToInt32(Console.ReadLine());
     
 
@@ -14,14 +15,11 @@ if (wyborcheck == 1)
 {
     //Rozpoczęcie gry z botem
     Console.WriteLine("<-----ROZPOCZĘCIE GRY Z BOTEM----->");
-    WyjasnienieZasad();
     char[,] planszaGracza =StworzPlansze();
     char[,] planszaBota = StworzPlansze();
     Console.WriteLine("---Twoja Plansza---");
     PokażPlansze(planszaGracza, false);
-    Statkidouzycia();
-    Console.WriteLine("Postaw Statek na planszy (np. ):");
-    //PokażPlansze(planszaBota, true);
+    RozstawStatkiGracz(planszaGracza);
 
 
 }
@@ -41,15 +39,12 @@ if (wyborcheck == 3)
 
 void WyjasnienieZasad()
 {
-    Console.WriteLine("<Szybkie Wyjasnienie Zasad>");
+    Console.WriteLine("\n<Szybkie Wyjasnienie Zasad>");
     Console.WriteLine("Plansza 10x10 \n  Znaki na Planszy: \n Woda - ~ \n Statek - S \n Pudło - O \n Trafienie - X");
 
 
 }
-void Statkidouzycia()
-{
-    Console.WriteLine("Statki: \n 1x4 \n 2x3 \n 3x2 \n 4x1 \n");
-}
+
 static char[,] StworzPlansze()
 {
     char[,] plansza = new char[10,10];
@@ -89,5 +84,70 @@ static void PokażPlansze(char[,] plansza, bool ukryjstatek)
 }
 static void PostawStatek(char[,] plansza, int x, int y, int dlugosc, bool poziomo)
 {
+    for (int i =0; i < dlugosc; i++)
+    {
+        if (poziomo)
+        {
+            plansza[x, y + i] = 'S';
+        
+        }
+        else
+        {
+            plansza[x + i, y] += 'S';
+        }
+}
+}
+static int WybierzStatek()
+{
+    Console.WriteLine("Wybierz statek do postawienia:");
+    Console.WriteLine("1. 1x4");
+    Console.WriteLine("2. 2x3");
+    Console.WriteLine("3. 3x2");
+    Console.WriteLine("4. 4x1");
+
+    int wybor = Convert.ToInt32(Console.ReadLine());
+
+    if (wybor == 1)
+    {
+
+    }
+    if (wybor == 2)
+    {
+
+    }
+    if (wybor == 3)
+    {
+
+    }
+    if (wybor == 4)
+    {
+
+    }
+    else
+    {
+        Console.WriteLine("Zły wybor");
+    }
+    return 0;
+}
+static void RozstawStatkiGracz(char[,] plansza)
+{
+    int s4 = 1;
+    int s3 = 2;
+    int s2 = 3;
+    int s1 = 4;
+
+    while (s4 + s3 + s2 + s1 > 0)
+    {
+        Console.Clear();
+        PokażPlansze(plansza, false);
+
+        Console.WriteLine("Pozostałe Statki:");
+        Console.WriteLine($"1. 1x4 ({s4})");
+        Console.WriteLine($"1. 2x3 ({s3})");
+        Console.WriteLine($"1. 3x2 ({s2})");
+        Console.WriteLine($"1. 4x1 ({s1})");
+
+        WybierzStatek();
+    }
 
 }
