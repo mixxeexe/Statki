@@ -30,6 +30,24 @@ if (wyborcheck == 1)
         PokażPlansze(planszaGracza, false);
         Console.WriteLine("\nPLANSZA BOTA:");
         PokażPlansze(planszaBota, true);
+
+        Console.WriteLine("Strzał!");
+        Console.WriteLine("\n Podaj X:");
+        int x = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("\n Podaj Y:");
+        int y = Convert.ToInt32(Console.ReadLine());
+
+        if (Strzał(planszaBota, x, y))
+        {
+            Console.WriteLine("Trafileś!!");
+        }
+        else
+        {
+            Console.WriteLine("Pudło!!");
+        }
+        Console.ReadLine() ;
+
+        StrzałBota(planszaGracza);
     }
 
 }
@@ -241,10 +259,9 @@ static void RozstawStatkiGracz(char[,] plansza)
         Console.WriteLine();
         bool poziomo = (k == 'P');
 
-        Console.Write("Podaj X (0-9): ");
-        int x = Convert.ToInt32(Console.ReadLine());
-        Console.Write("Podaj Y (0-9): ");
-        int y = Convert.ToInt32(Console.ReadLine());
+
+        int x = Wczytaj("Podaj X: ", 0, 9);
+        int y = Wczytaj("Podaj Y: ", 0, 9);
 
         if (CzyMoznaPostawic(plansza, x, y, dlugość, poziomo))
         {
@@ -264,6 +281,16 @@ static void RozstawStatkiGracz(char[,] plansza)
 
 
 
+    }
+    static int Wczytaj(string tekst, int min, int max)
+    {
+        int n;
+        do
+        {
+            Console.Write(tekst);
+        }
+        while (!int.TryParse(Console.ReadLine(), out n) || n < min || n > max);
+        return n;
     }
     
 } 
