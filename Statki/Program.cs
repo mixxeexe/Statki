@@ -1,4 +1,6 @@
-﻿int wyborcheck;
+﻿using System.Diagnostics;
+
+int wyborcheck;
 const int ROZMIAR = 10;
 //Menu
 Console.WriteLine(" ██████╗ ██████╗  █████╗     ██╗    ██╗    ███████╗████████╗ █████╗ ████████╗██╗  ██╗██╗\r\n██╔════╝ ██╔══██╗██╔══██╗    ██║    ██║    ██╔════╝╚══██╔══╝██╔══██╗╚══██╔══╝██║ ██╔╝██║\r\n██║  ███╗██████╔╝███████║    ██║ █╗ ██║    ███████╗   ██║   ███████║   ██║   █████╔╝ ██║\r\n██║   ██║██╔══██╗██╔══██║    ██║███╗██║    ╚════██║   ██║   ██╔══██║   ██║   ██╔═██╗ ██║\r\n╚██████╔╝██║  ██║██║  ██║    ╚███╔███╔╝    ███████║   ██║   ██║  ██║   ██║   ██║  ██╗██║\r\n ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝     ╚══╝╚══╝     ╚══════╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝\r\n");
@@ -22,6 +24,17 @@ if (wyborcheck == 1)
     StatkiBota(planszaBota);
     Console.ReadLine();
 
+     static int Wczytaj(string tekst, int min, int max)
+    {
+        int n;
+        do
+        {
+            Console.Write(tekst);
+        }
+        while (!int.TryParse(Console.ReadLine(), out n) || n < min || n > max);
+        return n;
+    }
+    
     //ROZGRYWKA
     while (true)
     {
@@ -32,10 +45,9 @@ if (wyborcheck == 1)
         PokażPlansze(planszaBota, true);
 
         Console.WriteLine("Strzał!");
-        Console.WriteLine("\n Podaj X:");
-        int x = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("\n Podaj Y:");
-        int y = Convert.ToInt32(Console.ReadLine());
+        int x = Wczytaj("Podaj X: ", 0, 9);
+        int y = Wczytaj("Podaj Y: ", 0, 9);
+
 
         if (Strzał(planszaBota, x, y))
         {
@@ -47,7 +59,29 @@ if (wyborcheck == 1)
         }
         Console.ReadLine() ;
 
+        if (CzyKoniec(planszaBota))
+        {
+            Console.WriteLine("\n WYGRAŁEŚ!!!");
+
+            Console.WriteLine("\nKoniec gry");
+            Console.ReadKey();
+            break;
+        }
+
         StrzałBota(planszaGracza);
+
+        if (CzyKoniec(planszaGracza))
+        {
+            Console.Clear();
+            Console.WriteLine("\n BOT WYGRAŁ!");
+     
+
+            Console.WriteLine("\nKoniec gry");
+            Console.ReadKey();
+            break;
+        }
+
+
     }
 
 }
@@ -116,19 +150,38 @@ static void PostawStatek(char[,] plansza, int x, int y, int dlugosc, bool poziom
 
 static bool CzyMoznaPostawic(char[,] plansza, int x, int y, int dlugosc, bool poziomo)
 {
-    if (poziomo && y + dlugosc > 10) return false;
-    if (poziomo && x + dlugosc > 10) return false;
+    if (poziomo)
+    {
+        if (y + dlugosc > ROZMIAR) return false;
+    }
+    else
+    {
+        if (x + dlugosc > ROZMIAR) return false;
+    }
 
     for (int i = 0; i < dlugosc; i++)
     {
-        if (poziomo && plansza[x, y + i] != '~') return false;
-        if (!poziomo && plansza[x + i, y] != '~') return false;
+        if (poziomo)
+        {
+            if (plansza[x, y + i] != '~') return false;
+        }
+        else
+        {
+            if (plansza[x + i, y] != '~') return false;
+        }
     }
-
 
     return true;
 }
-static bool Strzał(char[,] plansza, int x, int y)
+
+static bool CzyKoniec(char[,] plansza)
+{
+    foreach (char c in plansza)
+        if (c == 'S')
+            return false;
+    return true;
+}
+    static bool Strzał(char[,] plansza, int x, int y)
 {
     if (plansza[x, y] == 'S')
     {
@@ -213,7 +266,7 @@ static void RozstawStatkiGracz(char[,] plansza)
         Console.WriteLine("3. 3x2");
         Console.WriteLine("4. 4x1");
 
-        int wybor = Convert.ToInt32(Console.ReadLine());
+        int wybor = Wczytaj("", 1, 4);
         int dlugość = 0;
         if (wybor == 1)
         {
